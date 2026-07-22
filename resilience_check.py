@@ -17,21 +17,39 @@ expanded_questions = [
     "Were you place in foster care or have experience extended separation from your family (due to incarceration/military deployment/hospitalization, etc.) prior to age 18?",
     "Have you ever been a victim of racism (been discriminated against based on race, called racial slurs, experienced violence due to race, etc.) prior to age 18?"
 ]
-core_answer =[]
+core_categories = [
+    "physical abuse",
+    "emotional abuse",
+    "sexual abuse",
+    "physical neglect",
+    "emotional neglect",
+    "household substance abuse",
+    "household mental illness",
+    "witnessed domestic violence",
+    "incarcerated household member",
+    "parental separation/divorce"
+]
+collection = []
 print("DISCLAIMER: The results of this survey are NOT a diagnosis; rather, they should be used as a helpful guide to navigating your experiences")
-for i in core_questions:
+for i in range(len(core_questions)):
     while True:
-        response = input(i).lower()
+        response = input(core_questions[i]).lower()
         if response == "yes":
-            core_answer.append(1)
+            value = 1
             break
-        elif response == "no":
-            core_answer.append(0) 
+        elif response == "no": 
+            value = 0
             break
         else:
             print("Please respond with a 'Yes' or 'No'")
-score = sum(core_answer)
-print("The following questions are part of the expanded portion of the test. Responses will NOT be recorded toward the ACE score")
+    my_dict = {"category": core_categories[i], "question": core_questions[i], "answer": value}
+    collection.append(my_dict)
+score = 0
+for item in collection:
+    score += item["answer"]
+with open("score_history.txt", "a") as file:
+    file.write(f"{score}\n")
+print("The following questions are part of the expanded portion of the test. Responses will NOT be recorded toward the ACE score.")
 for i in expanded_questions:
     while True:
         response = input(i).lower()
@@ -43,12 +61,12 @@ for i in expanded_questions:
             print("Please respond with a 'Yes' or 'No'")
 if score == 0:
     print( "Your score indicates a low likelihood of ACE")
-    print("Just a reminder, these results are NOT a diagnosis")
+    print("Just a reminder, these results are NOT a diagnosis.")
 elif 1 <= score <= 3:
     print("Your score indicates a moderate likelihood of ACE")
-    print("Reminder, these results are NOT a diagnosis. Please seek professional help if necessary")
+    print("Reminder, these results are NOT a diagnosis. Please seek professional help if necessary.")
 elif score >= 4:
     print("Your score indicates a high likelihood of ACE")
-    print("While your results are not a diagnosis, given your score it is suggested that you receive help from a professional resource")
+    print("While your results are not a diagnosis, given your score it is suggested that you receive help from a professional resource.")
 print("Thank you for sharing. Your answers to the expanded questions, while not part of the official ACE score, are also recognized as significant, so know that your experiences are valued. " \
-"Should your answers to the expanded questions resonate with you, the 988 hotline and SAMHSA website are useful resources that can get you the help you need")
+"Should your answers to the expanded questions resonate with you, the 988 hotline and SAMHSA website are useful resources that can get you the help you need.")
