@@ -31,18 +31,18 @@ core_categories = [
 ]
 collection = []
 print("DISCLAIMER: The results of this survey are NOT a diagnosis; rather, they should be used as a helpful guide to navigating your experiences")
-for i in range(len(core_questions)):
+for i, question in enumerate(core_questions):
     while True:
-        response = input(core_questions[i]).lower()
-        if response == "yes":
-            value = 1
-            break
-        elif response == "no": 
-            value = 0
-            break
-        else:
-            print("Please respond with a 'Yes' or 'No'")
-    my_dict = {"category": core_categories[i], "question": core_questions[i], "answer": value}
+            response = input(question).lower()
+            if response == "yes":
+                value = 1
+                break
+            elif response == "no": 
+                value = 0
+                break
+            else:
+                print("Please respond with a 'Yes' or 'No'")
+    my_dict = {"category": core_categories[i], "question": question, "answer": value}
     collection.append(my_dict)
 score = 0
 for item in collection:
